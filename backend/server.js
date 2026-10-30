@@ -24,11 +24,13 @@ app.use('/api/patients', require('./routes/patientRoutes'));
 app.use('/api/doctors', require('./routes/doctorRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 
-// Uncomment when appointmentRoutes.js is ready
-// app.use('/api/appointments', require('./routes/appointmentRoutes'));
-
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Locally: start the server. On Vercel: the platform handles requests.
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
